@@ -2,8 +2,12 @@ import InputField from "../../../common/form/InputField.jsx";
 import PropTypes from "prop-types";
 import FormHandlingButton from "../../../common/form/FormHandlingButton.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { storeProductBasicDetails } from "../../../../utilities/slice/productBasicDetailsSlice.js";
+import {
+  resetProductBasicDetails,
+  storeProductBasicDetails,
+} from "../../../../utilities/slice/productBasicDetailsSlice.js";
 import { useEffect, useState } from "react";
+import ResetBtn from '../../../../assets/icon/reset.png'
 
 const ProductBasicDetailsForm = ({
   productBasicDetails,
@@ -13,7 +17,7 @@ const ProductBasicDetailsForm = ({
   const [existingProductDetails, setExistingProductDetails] = useState({});
   const dispatch = useDispatch();
   const alreadyAddedProductDetails = useSelector(
-    (state) => state.productDetails.productBasicDetails,
+    (state) => state.productDetails.product.productBasicDetails,
   );
 
   useEffect(() => {
@@ -31,12 +35,25 @@ const ProductBasicDetailsForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (productBasicDetails.product_name !== "") {
+      dispatch(storeProductBasicDetails(productBasicDetails));
+      handleNextFormRendering();
+      return
+    }
+
     dispatch(storeProductBasicDetails(productBasicDetails));
     handleNextFormRendering();
   };
 
+  const resetBasicDetailsForm = () => {
+    dispatch(resetProductBasicDetails());
+  };
+
   return (
     <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+      <button type="button" onClick={resetBasicDetailsForm}>
+        <img src={ResetBtn} alt='reset button'/>
+      </button>
       <div>
         <h1 className="text-lg font-bold">Product Basic Details</h1>
       </div>
@@ -51,7 +68,7 @@ const ProductBasicDetailsForm = ({
         type="number"
         name="product_quantity"
         labelName="Product Quantity"
-        value={existingProductDetails.product_price}
+        value={existingProductDetails.product_quantity}
         handleInputField={handleInputField}
       />
       <InputField

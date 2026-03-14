@@ -1,11 +1,10 @@
 import InputField from "../../../common/form/InputField.jsx";
 import PropTypes from "prop-types";
-import FormHandlingButton from "../../../common/form/FormHandlingButton.jsx";
-
+import BackBtn from '../../../../assets/icon/back-button.png'
 const ProductWarrantyDetailsForm = ({ handleBackFormRendering }) => {
   return (
     <form className="max-w-sm mx-auto">
-      <button type='button' onClick={handleBackFormRendering}>Go Back</button>
+      <button type='button' onClick={handleBackFormRendering}><img src={BackBtn} alt='back button' /></button>
       <div>
         <h1 className="text-lg font-bold">Product Warranty Details</h1>
       </div>
