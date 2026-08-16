@@ -1,21 +1,16 @@
 import PropTypes from "prop-types";
 
-const FormHandlingButton = ({ executingMethod, buttonName, btnStyle }) => {
+const FormHandlingButton = ({ buttonName, btnStyle }) => {
   return (
-    <button
-      type="button"
-      onClick={executingMethod}
-      className={btnStyle}
-    >
+    <button type="submit" className={btnStyle}>
       {buttonName}
     </button>
   );
 };
 
 FormHandlingButton.propaTypes = {
-  executingMethod: PropTypes.func.isRequired,
   buttonName: PropTypes.string.isRequired,
-  btnStyle: PropTypes.func.isRequired
+  btnStyle: PropTypes.func.isRequired,
 };
 
 export default FormHandlingButton;

@@ -6,8 +6,12 @@ export const productBasicDetailsSlice = createSlice({
         productBasicDetails: {}
     },
     reducers: {
-      storeProductBasicDetails: (state, action) => {}
+      storeProductBasicDetails: (state, action) => {
+        state.productBasicDetails = action.payload;
+      }
     }
 });
+
+export const { storeProductBasicDetails } = productBasicDetailsSlice.actions;
 
 export default productBasicDetailsSlice.reducer

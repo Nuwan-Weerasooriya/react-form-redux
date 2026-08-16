@@ -5,6 +5,7 @@ import FormHandlingButton from "../../../common/form/FormHandlingButton.jsx";
 const ProductWarrantyDetailsForm = ({ handleBackFormRendering }) => {
   return (
     <form className="max-w-sm mx-auto">
+      <button type='button' onClick={handleBackFormRendering}>Go Back</button>
       <div>
         <h1 className="text-lg font-bold">Product Warranty Details</h1>
       </div>
@@ -22,12 +23,6 @@ const ProductWarrantyDetailsForm = ({ handleBackFormRendering }) => {
         type="date"
         name="warranty_end_date"
         labelName="Warranty End Date"
-      />
-
-      <FormHandlingButton
-        executingMethod={handleBackFormRendering}
-        buttonName="Back To Basic Details"
-        btnStyle='dark-btn'
       />
     </form>
   );
