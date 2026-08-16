@@ -1,20 +1,29 @@
 import InputField from "../../../common/form/InputField.jsx";
 import PropTypes from "prop-types";
 import FormHandlingButton from "../../../common/form/FormHandlingButton.jsx";
+import { useDispatch, useSelector } from "react-redux";
 import { storeProductBasicDetails } from "../../../../utilities/slice/productBasicDetailsSlice.js";
-import {useDispatch} from "react-redux";
+import {useEffect, useState} from "react";
 
 const ProductBasicDetailsForm = ({
   productBasicDetails,
   setProductBasicDetails,
   handleNextFormRendering,
 }) => {
-    const dispatch = useDispatch()
+  const [existingProductDetails, setExistingProductDetails] = useState({})
+  const dispatch = useDispatch();
+  const alreadyAddedProductDetails = useSelector(
+    (state) => state.productDetails.productBasicDetails,
+  );
+
+    useEffect(() => {
+        setExistingProductDetails(alreadyAddedProductDetails)
+    }, [alreadyAddedProductDetails]);
 
   const handleInputField = (event) => {
     const { name, value } = event.target;
 
-    setProductBasicDetails((prevState) => ({            // spread karana nisa normal bracket () yodai
+    setProductBasicDetails((prevState) => ({   // spread karana nisa normal bracket () yodai
       ...prevState,
       [name]: value,
     }));
@@ -22,11 +31,8 @@ const ProductBasicDetailsForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    dispatch(storeProductBasicDetails(productBasicDetails))        //action method eka widiyata act karana nisa () yodai
-
-      handleNextFormRendering()
-
+    dispatch(storeProductBasicDetails(productBasicDetails)); //action method eka widiyata act karana nisa () yodai
+    handleNextFormRendering();
   };
 
   return (
@@ -38,18 +44,21 @@ const ProductBasicDetailsForm = ({
         type="text"
         name="product_name"
         labelName="Product Name"
+        value={existingProductDetails.product_name}
         handleInputField={handleInputField}
       />
       <InputField
         type="number"
         name="product_quantity"
         labelName="Product Quantity"
+        value={existingProductDetails.product_quantity}
         handleInputField={handleInputField}
       />
       <InputField
         type="number"
         name="product_price"
         labelName="Product Price"
+        value={existingProductDetails.product_price}
         handleInputField={handleInputField}
       />
 
